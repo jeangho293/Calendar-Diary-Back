@@ -13,11 +13,6 @@ const UserSchema = new Schema({
     required: true,
     min: 4,
   },
-  confirmPW: {
-    type: String,
-    required: true,
-    min: 4,
-  }
 }, {
   versionKey: false,
 });
