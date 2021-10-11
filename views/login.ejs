@@ -5,12 +5,35 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <title>Title</title>
+
+    <script>
+      // 로그인 버튼 이벤트
+      function loginButton() {
+        const userID = $('#ID').val();
+        const PW = $('#PW').val();
+
+        $.ajax({
+          type: 'POST',
+          url: 'login',
+          data: {
+            userID, PW,
+          },
+          success: function (response) {
+            alert('우선 데이터 전송은 완료');
+          }
+        });
+      }
+    </script>
 </head>
 <body>
-    임시 로그인 창입니다.
-    <p>아이디: <input type="text"></p>
-    <p>비밀번호: <input type="text"></p>
-    <p><button>로그인</button></p>
-    <p><button onclick="location.href='/signup'">회원 가입</button></p>
+임시 로그인 창입니다.
+<p>아이디: <input type="text" id="ID"></p>
+<p>비밀번호: <input type="text" id="PW"></p>
+<p>
+    <button onclick="loginButton()">로그인</button>
+</p>
+<p>
+    <button onclick="location.href='/signup'">회원 가입</button>
+</p>
 </body>
 </html>
