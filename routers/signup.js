@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../schemas/signup');
+const bcrypt = require('bcrypt');
 
 router.route('')
     // 회원가입 페이지에 대한 렌더링 API
@@ -17,7 +18,9 @@ router.route('')
         if (await User.findOne({userID})) {
           res.send({msg: '중복된 아이디입니다.'});
         } else {
-          await User.create({userID, PW, confirmPW});
+          // bcrypt를 활용한 비밀번호 암호화, DB 생성
+          const EncryptPW =  bcrypt.hashSync(PW, 10);
+          await User.create({userID, PW: EncryptPW});
           res.send({msg: '회원가입을 축하드립니다.'});
         }
       } catch (err) {
