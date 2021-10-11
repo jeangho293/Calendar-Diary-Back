@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cookieParser = require('cookie-parser');
 const loginPage = require('./routers/login');
 const signupPage = require('./routers/signup');
 const connect = require('./schemas/app');
@@ -13,6 +14,7 @@ app.set('view engine', 'ejs');
 // middleware
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(cookieParser(process.env.JWT_SECRET_KEY));
 app.use('/login', loginPage);
 app.use('/signup', signupPage);
 
