@@ -2,6 +2,7 @@
   "name": "calendar-diary-back",
   "version": "1.0.0",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
