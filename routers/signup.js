@@ -1,3 +1,4 @@
+// 회원등록에 관한 Router
 const express = require('express');
 const router = express.Router();
 const User = require('../schemas/signup');
@@ -23,7 +24,6 @@ router.route('')
         console.log(`method: ${req.method}, url: ${req.originalUrl}, error: ${err}`);
         res.status(400).send({msg: '회원가입 등록 오류입니다.'});
       }
-      res.end();
     });
 
 router.route('/checkup')
