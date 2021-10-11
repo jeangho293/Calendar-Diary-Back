@@ -19,7 +19,7 @@ router.route('')
           res.send({msg: '중복된 아이디입니다.'});
         } else {
           // bcrypt를 활용한 비밀번호 암호화, DB 생성
-          const EncryptPW =  bcrypt.hashSync(PW, 10);
+          const EncryptPW =  bcrypt.hashSync(PW, parseInt(process.env.SALT));
           await User.create({userID, PW: EncryptPW});
           res.send({msg: '회원가입을 축하드립니다.'});
         }
