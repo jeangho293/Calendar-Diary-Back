@@ -23,7 +23,7 @@ TryLogin = async (req, res) => {
           secure: true,
         });
         console.log('로그인 성공')
-        res.status(200).json({msg: 'success'});
+        res.status(200).send({msg: 'success'});
       } else {
         console.log('아이디 또는 비밀번호가 틀림')
         res.status(200).send({msg: '아이디 또는 비밀번호가 틀렸습니다.'});
