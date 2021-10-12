@@ -7,11 +7,10 @@ const authUser = require('../middleware/auth-middleware');
 router.route('')
     //로그인 페이지 렌더링
     .get(authUser, (req, res) => {
-      console.log('로그인페이지 이동했음');
+
       if (res.locals.user) {
+        console.log('인증받은 사용자=> 메인으로', res.locals.user);
         res.send({msg: 'success'});
-      } else {
-        res.send({msg: 'fail'});
       }
     })
 
