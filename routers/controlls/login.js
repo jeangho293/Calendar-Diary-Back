@@ -19,17 +19,17 @@ TryLogin = async (req, res) => {
         res.cookie('mytoken', token, {
           maxAge: 86400 * 3000,
           httpOnly: true,
-          sameSite: "None",
+          sameSite: 'None',
           secure: true,
         });
-        console.log('로그인 성공')
+        console.log('로그인 성공');
         res.status(200).send({msg: 'success'});
       } else {
-        console.log('아이디 또는 비밀번호가 틀림')
+        console.log('아이디 또는 비밀번호가 틀림');
         res.status(200).send({msg: '아이디 또는 비밀번호가 틀렸습니다.'});
       }
     } else {
-      console.log('존재하지않는 아이디')
+      console.log('존재하지않는 아이디');
       res.status(200).send({msg: '존재하지 않는 아이디입니다.'});
     }
   } catch (err) {
