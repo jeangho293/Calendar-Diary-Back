@@ -7,7 +7,7 @@ const joi = require('joi');
 SignUser = async (req, res) => {
   const UserSchema = joi.object({
     userID: joi.string().min(4).alphanum().required(),
-    PW: joi.string().min(4).required(),
+    PW: joi.string().min(4).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
     confirmPW: joi.ref('PW'),
   })
   try {
@@ -36,7 +36,7 @@ CheckDuplicatedID = async (req, res) => {
   try {
     const {userID} = req.body;
     if (await User.findOne({userID})) {
-      res.status(200).send({msg: '중복된 아이디입니다. (중복버튼)'});
+      res.status(200).send({msg: '이미 존재하는 아이디입니다.'});
     } else {
       res.send({msg: '사용 가능한 아이디입니다'});
     }
