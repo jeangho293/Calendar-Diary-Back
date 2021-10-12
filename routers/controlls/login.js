@@ -19,7 +19,6 @@ TryLogin = async (req, res) => {
           httpOnly: true,
         });
         res.status(200).send({msg: 'success'});
-        return;
       } else {
         res.status(200).send({msg: '아이디 또는 비밀번호가 틀렸습니다.'});
       }
