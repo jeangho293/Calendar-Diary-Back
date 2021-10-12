@@ -4,7 +4,7 @@ const Diary = require('../../schemas/diary');
 CreateDiary = async (req, res) => {
   try {
     const {userID, date, title, content, color} = req.body;
-    // Diary DB저장
+    // Diary DB 저장
     await Diary.create({userID, date, title, content, color});
     res.send({msg: 'success'});
   } catch (err) {
@@ -16,6 +16,7 @@ CreateDiary = async (req, res) => {
 // 다이어리 수정 기능
 EditDiary = async (req, res) => {
   try {
+    // 다이어리 수정
     const {diaryID, title, content, color} = req.body;
     await Diary.findByIdAndUpdate(diaryID, {$set: {title, content, color}});
     res.send({msg: 'success'});
@@ -27,10 +28,10 @@ EditDiary = async (req, res) => {
 
 // 다이어리 삭제 기능
 DeleteDiary = async (req, res) => {
-  try{
-
+  try {
+    // 다이어리 삭제
     await Diary.findByIdAndDelete(req.body.diaryID);
-    res.send({msg: 'success'})
+    res.send({msg: 'success'});
   } catch (err) {
     console.log(`method: ${req.method}, url: ${req.originalUrl}, err: ${err}`);
     res.send(500).send({msg: 'fail'});
@@ -39,4 +40,4 @@ DeleteDiary = async (req, res) => {
 
 module.exports = {
   CreateDiary, EditDiary, DeleteDiary,
-}
+};
