@@ -19,7 +19,7 @@ TryLogin = async (req, res) => {
         res.cookie('mytoken', token, {
           maxAge: 86400 * 3000,
           httpOnly: true,
-          sameSite: 'None',
+          sameSite: 'none',
           secure: true,
         });
         console.log('로그인 성공');
