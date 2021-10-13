@@ -5,22 +5,23 @@ const joi = require('joi');
 CreateDiary = async (req, res, next) => {
   // joi 검증
   const userID = (res.locals.user);
+  console.log(req.body);
   console.log(userID);
   try {
     const DiarySchema = joi.object({
       //userID: joi.string().alphanum().min(4).required(),
       date: joi.string().required(),
-      title: joi.ref('date'),
-      content: joi.ref('date'),
-      color: joi.ref('date'),
+      title: joi.string().required(),
+      content: joi.string().required(),
+      color: joi.string().required(),
     });
     const {date, title, content, color} = await DiarySchema.validateAsync(req.body);
     // Diary DB 저장
     await Diary.create({userID, date, title, content, color});
-    res.send({msg: 'success'});
+    res.send({msg: '다이어리 작성에 성공했습니다.'});
   } catch (err) {
     console.log(`method: ${req.method}, url: ${req.originalUrl}, err: ${err}`);
-    res.status(200).send({msg: 'fail11'});
+    res.status(200).send({msg: '다이어리 작성에 실패했습니다.'});
   }
 };
 
