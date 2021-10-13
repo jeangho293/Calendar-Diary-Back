@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
     } else {
       // 토큰이 없으면 튕겨나감
       console.log(`method: ${req.method}, url: ${req.originalUrl}, 인증받지 않는 사용자`);
-      res.send({msg: 'fail'});
+      res.send({msg: '권한이 없습니다. 로그인 후 이용해주세요.'}); // --> 나중에 프론트분들과 메세지를 약속해야함
       return;
     }
   } catch (err) {
