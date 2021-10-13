@@ -5,18 +5,18 @@ const joi = require('joi');
 
 // 회원가입 절차 기능
 SignUser = async (req, res) => {
-  const UserSchema = joi.object({
-    userID: joi.string().min(4).alphanum().required(),
-    PW: joi.string().min(4).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
-    confirmPW: joi.ref('PW'),
-  })
   try {
-    console.log(await UserSchema.validateAsync(req.body));
+    const UserSchema = joi.object({
+      userID: joi.string().min(4).alphanum().required(),
+      PW: joi.string().min(4).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+      confirmPW: joi.ref('PW'),
+    });
+
     const {userID, PW, confirmPW} = await UserSchema.validateAsync(req.body);
     const CheckID = await CheckRegister(userID, PW, confirmPW);
 
     if (await User.findOne({userID})) {
-      res.status(200).send({msg: '이미 존재하는 아이디입니다'})
+      res.status(200).send({msg: '이미 존재하는 아이디입니다'});
     } else if (CheckID) {
       res.status(200).send(CheckID);
     } else {
