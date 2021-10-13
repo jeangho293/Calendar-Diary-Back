@@ -5,13 +5,13 @@ const router = express.Router();
 const authUser = require('../middleware/auth-middleware');
 
 router.route('')
-    //로그인 페이지 렌더링
-    .get(authUser, (req, res) => {
+  //로그인 페이지 렌더링
+  .get(authUser, (req, res) => {
 
-      if (res.locals.user) {
-        res.send({msg: 'success'});
-      }
-    })
+    if (res.locals.user) {
+      res.send({msg: 'success'});
+    }
+  })
 
-    .post(TryLogin);
+  .post(TryLogin);
 module.exports = router;
