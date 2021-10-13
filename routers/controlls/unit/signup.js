@@ -1,5 +1,5 @@
 // 회원 가입 종합 확인
-CheckRegister =  (userID, PW, confirmPW) => {
+CheckRegister = (userID, PW, confirmPW) => {
   if (!CheckID(userID)) {
     return {msg: '아이디가 형식에 맞지 않습니다.'};
   } else if (!CheckPWLength(PW)) {
@@ -46,5 +46,9 @@ ComparePWandConfirm = (PW, confirmPW) => {
 };
 
 module.exports = {
-  CheckRegister
-}
+  CheckRegister,
+  CheckID,
+  CheckPWLength,
+  CheckIncludePW,
+  ComparePWandConfirm
+};
