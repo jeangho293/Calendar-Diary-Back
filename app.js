@@ -5,6 +5,7 @@ const homePage = require('./routers/main');
 const loginPage = require('./routers/login');
 const signupPage = require('./routers/signup');
 const diaryPage = require('./routers/diary');
+const errorHandler = require('./middleware/error-middleware');
 const cors = require('cors');
 const connect = require('./schemas/app');
 connect();
@@ -28,7 +29,11 @@ app.use('/login', loginPage);
 app.use('/signup', signupPage);
 app.use('/diary', diaryPage);
 
-// app listening...
+// errorHandler
+app.use(errorHandler.routerError);
+app.use(errorHandler.errorHandler);
+
+// app listeningd...
 app.listen(process.env.PORT, () => {
   console.log(`http://localhost:${process.env.PORT}`);
 });
