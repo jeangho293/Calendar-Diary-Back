@@ -7,6 +7,7 @@ const signupPage = require('./routers/signup');
 const diaryPage = require('./routers/diary');
 const errorHandler = require('./middleware/error-middleware');
 const cors = require('cors');
+const morgan = require('morgan');
 const connect = require('./schemas/app');
 connect();
 require('dotenv').config();
@@ -17,6 +18,7 @@ app.use(cors({
   credentials: true,
   origin: true,
 }));
+//app.use(morgan('dev'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET_KEY));
