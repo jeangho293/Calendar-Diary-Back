@@ -11,10 +11,6 @@ const connect = require('./schemas/app');
 connect();
 require('dotenv').config();
 
-// EJS templates language
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
-
 // middleware
 app.use(cors({
   // 쿠키 등록 수정부분
@@ -33,7 +29,7 @@ app.use('/diary', diaryPage);
 app.use(errorHandler.routerError);
 app.use(errorHandler.errorHandler);
 
-// app listeningd...
+// app listening...
 app.listen(process.env.PORT, () => {
   console.log(`http://localhost:${process.env.PORT}`);
 });
