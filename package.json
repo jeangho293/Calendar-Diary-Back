@@ -28,6 +28,7 @@
   "homepage": "https://github.com/jeangho293/Calendar-Diary-Back#readme",
   "description": "",
   "devDependencies": {
-    "jest": "^27.2.5"
+    "jest": "^27.2.5",
+    "morgan": "^1.10.0"
   }
 }
