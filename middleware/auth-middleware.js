@@ -3,10 +3,9 @@ const jwt = require('jsonwebtoken');
 const User = require('../schemas/signup');
 
 module.exports = async (req, res, next) => {
-  const token = req.cookies.mytoken;
-  console.log(`token = ${token}`)
+  const token = req.headers.authorization.split(' ')[1]
+  //console.log(`token = ${token}`)
   try {
-
     if (token) {
       // 토큰이 존재하면 인증 절차
       const {userID} = jwt.verify(token, process.env.JWT_SECRET_KEY);
