@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 TryLogin = async (req, res) => {
   try {
     const {userID, PW} = req.body;
-    console.log(req.body);
     const user = await User.findOne({userID});
 
     // DB에 해당 userID가 존재할 경우
@@ -16,14 +15,14 @@ TryLogin = async (req, res) => {
         });
 
         console.log(`발급된 토큰: ${token}`);
-        res.cookie('mytoken', token, {
-          maxAge: 86400 * 3000,
-          httpOnly: true,
-          sameSite: 'none',
-          secure: true,
-        });
+        // res.cookie('mytoken', token, {
+        //   maxAge: 86400 * 3000,
+        //   httpOnly: true,
+        //   sameSite: 'none',
+        //   secure: true,
+        // });
         console.log('로그인 성공');
-        res.status(200).send({msg: 'success'});
+        res.status(200).send({msg: 'success', token: token});
       } else {
         console.log('아이디 또는 비밀번호가 틀림');
         res.status(200).send({msg: '아이디 또는 비밀번호가 틀렸습니다.'});
