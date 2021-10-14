@@ -42,8 +42,7 @@ EditDiary = async (req, res) => {
 DeleteDiary = async (req, res) => {
   try {
     // 다이어리 삭제
-    console.log(req.body.diaryID)
-    await Diary.findByIdAndDelete(req.body.diaryID);
+    await Diary.findByIdAndDelete(req.query.id);
     res.send({msg: 'success'});
   } catch (err) {
     console.log(`method: ${req.method}, url: ${req.originalUrl}, err: ${err}`);
