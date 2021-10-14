@@ -19,7 +19,6 @@ getMonthDiary = async (req, res) => {
         title: 1,
         color: 1,
       });
-    console.log(diaryDate);
     res.json(diaryDate);
   } catch (err) {
     res.status(400).send({msg: '메인페이지 요청 에러입니다.'});
