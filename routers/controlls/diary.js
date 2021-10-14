@@ -5,8 +5,6 @@ const joi = require('joi');
 CreateDiary = async (req, res, next) => {
   // joi 검증
   const userID = (res.locals.user);
-  console.log(req.body);
-  console.log(userID);
   try {
     const DiarySchema = joi.object({
       //userID: joi.string().alphanum().min(4).required(),
@@ -29,8 +27,9 @@ CreateDiary = async (req, res, next) => {
 EditDiary = async (req, res) => {
 
   try {
+    const diaryID = req.body.id;
+    const {title, content, color} = req.body.post;
     // 다이어리 수정
-    const {diaryID, title, content, color} = req.body;
     await Diary.findByIdAndUpdate(diaryID, {$set: {title, content, color}});
     res.send({msg: 'success'});
   } catch (err) {
@@ -43,6 +42,7 @@ EditDiary = async (req, res) => {
 DeleteDiary = async (req, res) => {
   try {
     // 다이어리 삭제
+    console.log(req.body.diaryID)
     await Diary.findByIdAndDelete(req.body.diaryID);
     res.send({msg: 'success'});
   } catch (err) {
