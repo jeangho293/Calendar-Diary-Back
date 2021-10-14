@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const connect = () => {
   mongoose
+    //connect('mongodb://test:test@13.124.198.97:27017/admin', {
     .connect('mongodb://localhost:27017/week4Back', {
       ignoreUndefined: true,
     })
