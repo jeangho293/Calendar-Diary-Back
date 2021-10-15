@@ -5,6 +5,7 @@ const authUser = require('../middleware/auth-middleware');
 const {CreateDiary, EditDiary, DeleteDiary} = require('./controlls/diary');
 const Diary = require('../schemas/diary');
 
+
 router.route('/')
   // 특정 다이어리 불러오기
   .get(authUser, async (req, res) => {
@@ -18,6 +19,6 @@ router.route('/')
   // 다이어리 수정
   .put(authUser, EditDiary)
   // 다이어리 삭제
-  .delete(DeleteDiary);
+  .delete(authUser, DeleteDiary);
 
 module.exports = router;
