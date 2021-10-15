@@ -1,8 +1,9 @@
 const User = require('../../schemas/signup');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const printError = require('../controlls/unit/error');
 
-TryLogin = async (req, res) => {
+TryLogin = async (req, res, next) => {
   try {
     const {userID, PW} = req.body;
     const user = await User.findOne({userID});
@@ -23,8 +24,8 @@ TryLogin = async (req, res) => {
       res.send({msg: '존재하지 않는 아이디입니다.'});
     }
   } catch (err) {
-    console.log(`method: ${req.method}, url: ${req.originalUrl}, error: ${err}`);
-    res.status(400).send({msg: 'fail'});
+    printError(req, err);
+    next();
   }
 };
 
