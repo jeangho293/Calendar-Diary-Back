@@ -3,17 +3,16 @@ const joi = require('joi');
 
 // 다이어리 작성 기능
 CreateDiary = async (req, res, next) => {
-  // joi 검증
-  const userID = (res.locals.user);
   try {
+    // joi 검증
     const DiarySchema = joi.object({
-      //userID: joi.string().alphanum().min(4).required(),
       date: joi.string().required(),
       title: joi.string().required(),
       content: joi.string().required(),
       color: joi.string().required(),
     });
-    const {date, title, content, color} = await DiarySchema.validateAsync(req.body);
+    const userID = res.locals.user;
+    const { date, title, content, color} = await DiarySchema.validateAsync(req.body);
     // Diary DB 저장
     await Diary.create({userID, date, title, content, color});
     res.send({msg: '다이어리 작성에 성공했습니다.'});
@@ -27,6 +26,7 @@ CreateDiary = async (req, res, next) => {
 EditDiary = async (req, res) => {
 
   try {
+    console.log(req.body)
     const diaryID = req.body.id;
     const {title, content, color} = req.body.post;
     // 다이어리 수정
@@ -46,7 +46,7 @@ DeleteDiary = async (req, res) => {
     res.send({msg: 'success'});
   } catch (err) {
     console.log(`method: ${req.method}, url: ${req.originalUrl}, err: ${err}`);
-    res.send(500).send({msg: 'fail'});
+    res.send(404).send({msg: 'fail'});
   }
 };
 
