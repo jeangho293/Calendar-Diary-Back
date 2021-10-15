@@ -24,9 +24,7 @@ CreateDiary = async (req, res, next) => {
 
 // 다이어리 수정 기능
 EditDiary = async (req, res) => {
-
   try {
-    console.log(req.body)
     const diaryID = req.body.id;
     const {title, content, color} = req.body.post;
     // 다이어리 수정
