@@ -16,9 +16,9 @@ SignUser = async (req, res) => {
     const CheckID = await CheckRegister(userID, PW, confirmPW);
 
     if (await User.findOne({userID})) {
-      res.status(200).send({msg: '이미 존재하는 아이디입니다'});
+      res.send({msg: '이미 존재하는 아이디입니다'});
     } else if (CheckID) {
-      res.status(200).send(CheckID);
+      res.send(CheckID);
     } else {
       // bcrypt 를 활용한 비미번화 암호화 및 DB 생성
       const EncryptPW = bcrypt.hashSync(PW, parseInt(process.env.SALT));
@@ -36,7 +36,7 @@ CheckDuplicatedID = async (req, res) => {
   try {
     const {userID} = req.body;
     if (await User.findOne({userID})) {
-      res.status(200).send({msg: '이미 존재하는 아이디입니다.'});
+      res.send({msg: '이미 존재하는 아이디입니다.'});
     } else {
       res.send({msg: '사용 가능한 아이디입니다'});
     }
