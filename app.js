@@ -5,11 +5,14 @@ const loginPage = require('./routers/login');
 const signupPage = require('./routers/signup');
 const diaryPage = require('./routers/diary');
 const errorHandler = require('./middleware/error-middleware');
+const {swaggerUi, specs} = require('./swagger/swagger');
 const cors = require('cors');
 const morgan = require('morgan');
 const connect = require('./schemas/app');
 connect();
 require('dotenv').config();
+
+app.use('/api', swaggerUi.serve, swaggerUi.setup(specs));
 
 // middleware
 app.use(cors({
@@ -31,5 +34,5 @@ app.use(errorHandler.errorHandler);
 
 // app listening...
 app.listen(process.env.PORT, () => {
-  console.log(`http://localhost:${process.env.PORT}`);
+  console.log(`http://localhost:4000/api`);
 });
