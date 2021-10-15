@@ -2,9 +2,10 @@ const User = require('../../schemas/signup');
 const bcrypt = require('bcrypt');
 const {CheckRegister} = require('./unit/signup');
 const joi = require('joi');
+const printError = require('../controlls/unit/error');
 
 // 회원가입 절차 기능
-SignUser = async (req, res) => {
+SignUser = async (req, res, next) => {
   try {
     const UserSchema = joi.object({
       userID: joi.string().min(4).alphanum().required(),
@@ -26,13 +27,13 @@ SignUser = async (req, res) => {
       res.status(200).send({msg: 'success'});
     }
   } catch (err) {
-    console.log(`method: ${req.method}, url: ${req.originalUrl}, error: ${err}`);
-    res.status(500).send({msg: '회원가입 등록 오류입니다.'});
+    printError(req, err);
+    next(err);
   }
 };
 
 // 아이디 중복 확인 절차 기능
-CheckDuplicatedID = async (req, res) => {
+CheckDuplicatedID = async (req, res, next) => {
   try {
     const {userID} = req.body;
     if (await User.findOne({userID})) {
@@ -41,8 +42,8 @@ CheckDuplicatedID = async (req, res) => {
       res.send({msg: '사용 가능한 아이디입니다'});
     }
   } catch (err) {
-    console.log(`method: ${req.method}, url: ${req.originalUrl}, error: ${err}`);
-    res.status(400).send({msg: '중복확인 버튼 에러입니다.'});
+    printError(req, err);
+    next();
   }
 };
 module.exports = {SignUser, CheckDuplicatedID};
