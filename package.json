@@ -30,6 +30,7 @@
   "homepage": "https://github.com/jeangho293/Calendar-Diary-Back#readme",
   "description": "",
   "devDependencies": {
+    "artillery": "^1.7.9",
     "jest": "^27.2.5",
     "morgan": "^1.10.0"
   }
