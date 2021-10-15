@@ -15,12 +15,12 @@ TryLogin = async (req, res) => {
         });
 
         console.log(`발급된 토큰: ${token}\n 로그인 성공`);
-        res.status(200).send({msg: 'success', token: token});
+        res.send({msg: 'success', token: token});
       } else {
-        res.status(200).send({msg: '아이디 또는 비밀번호가 틀렸습니다.'});
+        res.send({msg: '아이디 또는 비밀번호가 틀렸습니다.'});
       }
     } else {
-      res.status(200).send({msg: '존재하지 않는 아이디입니다.'});
+      res.send({msg: '존재하지 않는 아이디입니다.'});
     }
   } catch (err) {
     console.log(`method: ${req.method}, url: ${req.originalUrl}, error: ${err}`);
