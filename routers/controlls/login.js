@@ -3,6 +3,19 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const printError = require('../controlls/unit/error');
 
+// 로그인 페이지 허용
+GetLoginPage = (req, res, next) => {
+  try {
+    if (res.locals.user) {
+      res.send({msg: 'success'});
+    }
+  } catch (err) {
+    printError(req, err);
+    next();
+  }
+};
+
+// 로그인 시도
 TryLogin = async (req, res, next) => {
   try {
     const {userID, PW} = req.body;
@@ -29,4 +42,4 @@ TryLogin = async (req, res, next) => {
   }
 };
 
-module.exports = {TryLogin};
+module.exports = {TryLogin, GetLoginPage};
