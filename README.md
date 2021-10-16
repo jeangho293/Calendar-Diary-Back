@@ -10,7 +10,7 @@
 <h2>:family:Developers</h2>
 
 - BackEnd (Node.js)
-  - 👥김정호 ([Github](https://github.com/jeangho293)), 조원호([Github](https://github.com/Joe-wonho))
+  - 👥김정호 ([Github](https://github.com/jeangho293))
   - 👥조원호 ([Github](https://github.com/Joe-wonho))
 
 
