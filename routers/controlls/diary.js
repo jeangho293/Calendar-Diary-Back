@@ -20,7 +20,7 @@ CreateDiary = async (req, res, next) => {
     const DiarySchema = joi.object({
       date: joi.string().required(),
       title: joi.string().required(),
-      content: joi.string().required(),
+      content: joi.string().allow(''),
       color: joi.string().required(),
     });
     const userID = res.locals.user;

@@ -16,7 +16,6 @@ const DiarySchema = new Schema({
   },
   content: {
     type: String,
-    required: true,
   },
   color: {
     type: String,
