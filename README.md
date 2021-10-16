@@ -10,14 +10,14 @@
 <h2>:family:Developers</h2>
 
 - BackEnd (Node.js)
-  - 👥김정호
-  - 👥조원호
+  - 👥김정호 ([Github](https://github.com/jeangho293)), 조원호([Github](https://github.com/Joe-wonho))
+  - 👥조원호 ([Github](https://github.com/Joe-wonho))
 
 
 - FrontEnd (React)
-  - 👥심선아
-  - 👥김갑민
-  - 👥박시영
+  - 👥심선아 ([Github](https://github.com/jjubbu))
+  - 👥김갑민 ([Github](https://github.com/gabmin))
+  - 👥박시영 ([Github](https://github.com/larisms))
 
 <h2>👀View</h2>
 
