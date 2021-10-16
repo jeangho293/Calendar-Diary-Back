@@ -26,9 +26,9 @@
 
   종류 | 이름 |
   :----: | :----: |
-  개발 언어 | **Node.js** | 
-  DB | **MongoDB** |
-  웹 프레임 워크| **Express** |
+  개발 언어 | Node.js | 
+  DB | MongoDB |
+  웹 프레임 워크| Express |
 
 
 - 라이브러리
