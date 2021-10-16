@@ -7,7 +7,7 @@ const options = {
     info: {
       version: '1.0.0',
       title: '캘린더형 다이어리 API',
-      description: '아직은 미완성입니다.'
+      description: '협업을 위한 API 명세서'
     },
     host: 'localhost:4000',
     schemes: ['http', 'https'],
