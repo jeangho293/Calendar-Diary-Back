@@ -1,31 +1,41 @@
 const Diary = require('../../schemas/diary');
 const joi = require('joi');
+const printError = require('../controlls/unit/error');
+
+// 특정 다이어리 불러오기
+GetDetailDiary = async (req, res, next) => {
+  try {
+    const diaryData = await Diary.find({userID: res.locals.user, date: req.query.date});
+    res.json(diaryData);
+  } catch (err) {
+    printError(req, err);
+    next(err);
+  }
+};
 
 // 다이어리 작성 기능
 CreateDiary = async (req, res, next) => {
-  // joi 검증
-  const userID = (res.locals.user);
   try {
+    // joi 검증
     const DiarySchema = joi.object({
-      //userID: joi.string().alphanum().min(4).required(),
       date: joi.string().required(),
       title: joi.string().required(),
       content: joi.string().required(),
       color: joi.string().required(),
     });
+    const userID = res.locals.user;
     const {date, title, content, color} = await DiarySchema.validateAsync(req.body);
     // Diary DB 저장
     await Diary.create({userID, date, title, content, color});
     res.send({msg: '다이어리 작성에 성공했습니다.'});
   } catch (err) {
-    console.log(`method: ${req.method}, url: ${req.originalUrl}, err: ${err}`);
-    res.status(200).send({msg: '다이어리 작성에 실패했습니다.'});
+    printError(req, err);
+    next();
   }
 };
 
 // 다이어리 수정 기능
-EditDiary = async (req, res) => {
-
+EditDiary = async (req, res, next) => {
   try {
     const diaryID = req.body.id;
     const {title, content, color} = req.body.post;
@@ -33,23 +43,24 @@ EditDiary = async (req, res) => {
     await Diary.findByIdAndUpdate(diaryID, {$set: {title, content, color}});
     res.send({msg: 'success'});
   } catch (err) {
-    console.log(`method: ${req.method}, url: ${req.originalUrl}, err: ${err}`);
-    res.send(500).send({msg: 'fail'});
+    printError(req, err);
+    next();
   }
 };
 
 // 다이어리 삭제 기능
-DeleteDiary = async (req, res) => {
+DeleteDiary = async (req, res, next) => {
   try {
     // 다이어리 삭제
     await Diary.findByIdAndDelete(req.query.id);
     res.send({msg: 'success'});
   } catch (err) {
-    console.log(`method: ${req.method}, url: ${req.originalUrl}, err: ${err}`);
-    res.send(500).send({msg: 'fail'});
+    printError(req, err);
+    next();
   }
 };
 
 module.exports = {
   CreateDiary, EditDiary, DeleteDiary,
+  GetDetailDiary
 };

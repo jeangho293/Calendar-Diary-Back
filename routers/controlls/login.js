@@ -1,8 +1,22 @@
 const User = require('../../schemas/signup');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const printError = require('../controlls/unit/error');
 
-TryLogin = async (req, res) => {
+// 로그인 페이지 허용
+GetLoginPage = (req, res, next) => {
+  try {
+    if (res.locals.user) {
+      res.send({msg: 'success'});
+    }
+  } catch (err) {
+    printError(req, err);
+    next();
+  }
+};
+
+// 로그인 시도
+TryLogin = async (req, res, next) => {
   try {
     const {userID, PW} = req.body;
     const user = await User.findOne({userID});
@@ -15,17 +29,17 @@ TryLogin = async (req, res) => {
         });
 
         console.log(`발급된 토큰: ${token}\n 로그인 성공`);
-        res.status(200).send({msg: 'success', token: token});
+        res.send({msg: 'success', token: token});
       } else {
-        res.status(200).send({msg: '아이디 또는 비밀번호가 틀렸습니다.'});
+        res.send({msg: '아이디 또는 비밀번호가 틀렸습니다.'});
       }
     } else {
-      res.status(200).send({msg: '존재하지 않는 아이디입니다.'});
+      res.send({msg: '존재하지 않는 아이디입니다.'});
     }
   } catch (err) {
-    console.log(`method: ${req.method}, url: ${req.originalUrl}, error: ${err}`);
-    res.status(400).send({msg: 'fail'});
+    printError(req, err);
+    next();
   }
 };
 
-module.exports = {TryLogin};
+module.exports = {TryLogin, GetLoginPage};

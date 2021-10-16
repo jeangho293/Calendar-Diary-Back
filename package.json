@@ -10,7 +10,9 @@
     "express": "^4.17.1",
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.10"
+    "mongoose": "^6.0.10",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6"
   },
   "main": "app.js",
   "scripts": {
@@ -28,6 +30,7 @@
   "homepage": "https://github.com/jeangho293/Calendar-Diary-Back#readme",
   "description": "",
   "devDependencies": {
+    "artillery": "^1.7.9",
     "jest": "^27.2.5",
     "morgan": "^1.10.0"
   }

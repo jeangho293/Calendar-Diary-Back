@@ -1,8 +1,9 @@
 const Diary = require('../../schemas/diary');
 const {divideDate} = require('./unit/main');
+const printError = require('../controlls/unit/error');
 
 // 메인페이지에 보여지는 yyyy-mm 요청에 대한 DB 검출
-getMonthDiary = async (req, res) => {
+getMonthDiary = async (req, res, next) => {
   try {
     const date = divideDate(req);
     // 로그인한 유저가 쓴 다이어리만 가져오게 필터링
@@ -21,7 +22,8 @@ getMonthDiary = async (req, res) => {
       });
     res.json(diaryDate);
   } catch (err) {
-    res.status(400).send({msg: '메인페이지 요청 에러입니다.'});
+    printError(req, err);
+    next();
   }
 
 };
