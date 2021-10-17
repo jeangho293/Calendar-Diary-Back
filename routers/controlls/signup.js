@@ -1,4 +1,5 @@
-const User = require('../../schemas/signup');
+//const User = require('../../schemas/signup'); // version: MongoDB
+const User = require('../../models/signup');
 const bcrypt = require('bcrypt');
 const {CheckRegister} = require('./unit/signup');
 const joi = require('joi');
@@ -16,7 +17,11 @@ SignUser = async (req, res, next) => {
     const {userID, PW, confirmPW} = await UserSchema.validateAsync(req.body);
     const CheckID = await CheckRegister(userID, PW, confirmPW);
 
-    if (await User.findOne({userID})) {
+    if (await User.findOne({
+      where: {
+        userID,
+      }
+    })) {
       res.send({msg: '이미 존재하는 아이디입니다'});
     } else if (CheckID) {
       res.send(CheckID);
@@ -36,7 +41,11 @@ SignUser = async (req, res, next) => {
 CheckDuplicatedID = async (req, res, next) => {
   try {
     const {userID} = req.body;
-    if (await User.findOne({userID})) {
+    if (await User.findOne({
+      where: {
+        userID,
+      }
+    })) {
       res.send({msg: '이미 존재하는 아이디입니다.'});
     } else {
       res.send({msg: '사용 가능한 아이디입니다'});

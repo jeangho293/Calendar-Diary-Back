@@ -7,9 +7,19 @@ const diaryPage = require('./routers/diary');
 const errorHandler = require('./middleware/error-middleware');
 const {swaggerUi, specs} = require('./swagger/swagger');
 const cors = require('cors');
-const connect = require('./schemas/app');
-connect();
+const {sequelize} = require('./models');
+// const connect = require('./schemas/app');
+// connect();
 require('dotenv').config();
+
+// sequelize MYSQL
+sequelize.sync({force: false})
+  .then(() => {
+    console.log('MYSQL 연결 성공');
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 // swagger middleware
 app.use('/api', swaggerUi.serve, swaggerUi.setup(specs));

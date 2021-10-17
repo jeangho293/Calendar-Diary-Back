@@ -1,4 +1,5 @@
-const User = require('../../schemas/signup');
+// const User = require('../../schemas/signup'); // version: MongoDB
+const User = require('../../models/signup');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const printError = require('../controlls/unit/error');
@@ -19,8 +20,11 @@ GetLoginPage = (req, res, next) => {
 TryLogin = async (req, res, next) => {
   try {
     const {userID, PW} = req.body;
-    const user = await User.findOne({userID});
-
+    const user = await User.findOne({
+      where: {
+        userID,
+      }
+    });
     // DB에 해당 userID가 존재할 경우
     if (user) {
       if (await bcrypt.compare(PW, user.PW)) {

@@ -1,11 +1,20 @@
-const Diary = require('../../schemas/diary');
+//const Diary = require('../../schemas/diary'); // version: mongoDB
+const User = require('../../models/signup');
+const Diary = require('../../models/diary');
 const joi = require('joi');
 const printError = require('../controlls/unit/error');
 
 // 특정 다이어리 불러오기
 GetDetailDiary = async (req, res, next) => {
   try {
-    const diaryData = await Diary.find({userID: res.locals.user, date: req.query.date});
+    const diaryData = await Diary.findAll(
+      {
+        where:
+          {
+            userID: res.locals.user,
+            date: req.query.date,
+          }
+      });
     res.json(diaryData);
   } catch (err) {
     printError(req, err);
@@ -40,7 +49,13 @@ EditDiary = async (req, res, next) => {
     const diaryID = req.body.id;
     const {title, content, color} = req.body.post;
     // 다이어리 수정
-    await Diary.findByIdAndUpdate(diaryID, {$set: {title, content, color}});
+    await Diary.update({
+      title, content, color,
+    }, {
+      where: {
+        _id: diaryID,
+      }
+    });
     res.send({msg: 'success'});
   } catch (err) {
     printError(req, err);
@@ -52,7 +67,11 @@ EditDiary = async (req, res, next) => {
 DeleteDiary = async (req, res, next) => {
   try {
     // 다이어리 삭제
-    await Diary.findByIdAndDelete(req.query.id);
+    await Diary.destroy({
+      where: {
+        _id: req.query.id
+      }
+    });
     res.send({msg: 'success'});
   } catch (err) {
     printError(req, err);

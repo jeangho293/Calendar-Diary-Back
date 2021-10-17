@@ -1,14 +1,21 @@
 // 사용자 인증 미들웨어
 const jwt = require('jsonwebtoken');
-const User = require('../schemas/signup');
+//const User = require('../schemas/signup');  // version: MongoDB
+const User = require('../models/signup');
 
 module.exports = async (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(' ')[1]
+    const token = req.headers.authorization.split(' ')[1];
     if (token) {
       // 토큰이 존재하면 인증 절차
       const {userID} = jwt.verify(token, process.env.JWT_SECRET_KEY);
-      const user = await User.findOne({userID});
+      const user = await User.findOne(
+        {
+          where: {
+            userID,
+          }
+        }
+      );
       res.locals.user = user.userID;
       next();
     } else {
